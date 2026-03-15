@@ -1,0 +1,21 @@
+{
+  "name": "Wong Term Parking",
+  "short_name": "WTP",
+  "description": "Your guide to our Bali wedding — August 2026",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#faf7f0",
+  "theme_color": "#2d2d2d",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "effortLevel": "high",
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Read",
+      "Edit",
+      "Write",
+      "Glob",
+      "Grep",
+      "WebFetch",
+      "WebSearch",
+      "Bash(git:*)",
+      "Bash(gh:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "Bash(cat:*)",
+      "Bash(echo:*)",
+      "Bash(xcodegen:*)",
+      "Bash(open:*)",
+      "Bash(swift:*)",
+      "Bash(cp:*)",
+      "Bash(mv:*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/hooks/permission-help.sh\"",
+            "timeout": 5,
+            "statusMessage": "Checking..."
+          }
+        ]
+      }
+    ]
+  }
+}
