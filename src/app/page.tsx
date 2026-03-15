@@ -5,9 +5,9 @@ import CountdownTimer from "@/components/CountdownTimer";
 import { announcements, COUPLE_NAMES, WEDDING_DATE } from "@/data/wedding";
 import {
   CalendarDays,
+  ClipboardCheck,
   Megaphone,
   MapPin,
-  Users,
   ArrowRight,
 } from "lucide-react";
 
@@ -17,6 +17,12 @@ const quickLinks = [
     label: "Itinerary",
     description: "4 days of events",
     icon: CalendarDays,
+  },
+  {
+    href: "/rsvp",
+    label: "Event RSVP",
+    description: "RSVP for activities",
+    icon: ClipboardCheck,
   },
   {
     href: "/announcements",
@@ -29,12 +35,6 @@ const quickLinks = [
     label: "Travel Guide",
     description: "Getting to Bali",
     icon: MapPin,
-  },
-  {
-    href: "/guests",
-    label: "Guest List",
-    description: "Who's coming",
-    icon: Users,
   },
 ];
 
@@ -204,23 +204,6 @@ export default function Home() {
                 </Link>
               );
             })}
-
-            {/* Empty cell to balance the 2x3 grid — fills with a decorative touch */}
-            <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-[var(--cream-dark)] px-4 py-5 text-center">
-              <p
-                className="text-xl"
-                role="img"
-                aria-label="palm tree"
-              >
-                🌴
-              </p>
-              <p
-                className="mt-1 text-[11px] font-medium"
-                style={{ color: "var(--charcoal)", opacity: 0.35 }}
-              >
-                See you in Bali!
-              </p>
-            </div>
           </div>
         </div>
       </section>

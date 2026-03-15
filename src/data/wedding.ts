@@ -1,144 +1,121 @@
 import { WeddingDay, Announcement, TravelInfo } from "@/lib/types";
 
-export const WEDDING_DATE = "2026-08-15";
+export const WEDDING_DATE = "2026-08-03";
 export const COUPLE_NAMES = "Albert & Partner";
 export const WEDDING_LOCATION = "Bali, Indonesia";
 export const WEDDING_TAGLINE = "Wong Term Parking 🅿️";
 
 export const schedule: WeddingDay[] = [
   {
-    date: "2026-08-13",
-    label: "Thursday — Arrivals",
+    date: "2026-08-02",
+    label: "Saturday — Arrivals & Welcome",
     events: [
       {
         id: "1",
-        title: "Airport Welcome",
-        date: "2026-08-13",
+        title: "Arrivals",
+        date: "2026-08-02",
         startTime: "All Day",
-        location: "Ngurah Rai International Airport (DPS)",
+        location: "Eaze Villas",
         description:
-          "Look for our welcome team holding Wong Term Parking signs! We'll have transportation arranged to your hotel.",
+          "Welcome to Bali! Settle into your villa and relax after your journey.",
         category: "transportation",
       },
       {
         id: "2",
         title: "Welcome Drinks",
-        date: "2026-08-13",
+        date: "2026-08-02",
         startTime: "7:00 PM",
         endTime: "10:00 PM",
-        location: "Hotel Pool Bar",
+        location: "Eaze Villas",
         description:
-          "Casual welcome gathering. Grab a Bintang, meet the other guests, and shake off that jet lag!",
+          "Kick off the weekend with drinks, snacks, and good vibes. Casual dress — come as you are!",
         dressCode: "Casual / Resort Wear",
         category: "meal",
       },
     ],
   },
   {
-    date: "2026-08-14",
-    label: "Friday — Pre-Wedding Fun",
+    date: "2026-08-03",
+    label: "Sunday — The Big Day 💒",
     events: [
       {
         id: "3",
-        title: "Group Breakfast",
-        date: "2026-08-14",
-        startTime: "8:00 AM",
-        endTime: "10:00 AM",
-        location: "Hotel Restaurant",
-        description: "Buffet breakfast included with your room. Fuel up for a big day!",
-        category: "meal",
-      },
-      {
-        id: "4",
-        title: "Beach Day & Water Sports",
-        date: "2026-08-14",
-        startTime: "10:00 AM",
-        endTime: "3:00 PM",
-        location: "Nusa Dua Beach",
-        description:
-          "Optional beach activities: surfing lessons, snorkeling, paddleboarding, or just relax on the sand.",
-        category: "activity",
-      },
-      {
-        id: "5",
-        title: "Rehearsal Dinner",
-        date: "2026-08-14",
-        startTime: "6:30 PM",
-        endTime: "9:30 PM",
-        location: "Seaside Restaurant",
-        description:
-          "Dinner with a view. Toasts, stories, and a preview of tomorrow's big day.",
-        dressCode: "Smart Casual",
-        category: "meal",
-      },
-    ],
-  },
-  {
-    date: "2026-08-15",
-    label: "Saturday — The Big Day 💒",
-    events: [
-      {
-        id: "6",
         title: "Ceremony",
-        date: "2026-08-15",
-        startTime: "4:00 PM",
-        endTime: "5:00 PM",
-        location: "Clifftop Garden",
+        date: "2026-08-03",
+        startTime: "4:30 PM",
+        endTime: "5:30 PM",
+        location: "Khayangan Estate",
         description:
-          "The main event! Please be seated by 3:45 PM. Tissues will be provided. 🥲",
+          "The main event! Please be seated by 4:15 PM. Tissues will be provided. 🥲",
         dressCode: "Formal / Cocktail",
         category: "ceremony",
       },
       {
-        id: "7",
+        id: "4",
         title: "Cocktail Hour",
-        date: "2026-08-15",
-        startTime: "5:00 PM",
+        date: "2026-08-03",
+        startTime: "5:30 PM",
         endTime: "6:30 PM",
-        location: "Pavilion Terrace",
+        location: "Khayangan Estate",
         description: "Drinks, canapés, and sunset views while we take photos.",
         dressCode: "Formal / Cocktail",
         category: "reception",
       },
       {
-        id: "8",
+        id: "5",
         title: "Reception & Dinner",
-        date: "2026-08-15",
+        date: "2026-08-03",
         startTime: "6:30 PM",
-        endTime: "Late",
-        location: "Grand Ballroom",
+        endTime: "9:00 PM",
+        location: "Khayangan Estate",
         description:
-          "Dinner, speeches, first dance, and a party you won't forget (we hope!).",
+          "Dinner, speeches, first dance, and a party you won't forget!",
         dressCode: "Formal / Cocktail",
+        category: "reception",
+      },
+      {
+        id: "6",
+        title: "After Party",
+        date: "2026-08-03",
+        startTime: "9:00 PM",
+        endTime: "11:00 PM",
+        location: "Khayangan Estate",
+        description:
+          "The party continues! Dance floor is open. 🎶",
+        dressCode: "Come as you are",
         category: "reception",
       },
     ],
   },
   {
-    date: "2026-08-16",
-    label: "Sunday — Recovery & Farewell",
+    date: "2026-08-04",
+    label: "Monday — Chill Day",
     events: [
       {
-        id: "9",
-        title: "Recovery Brunch",
-        date: "2026-08-16",
-        startTime: "10:00 AM",
-        endTime: "1:00 PM",
-        location: "Hotel Restaurant",
+        id: "7",
+        title: "Chill Day at Khayangan Estate",
+        date: "2026-08-04",
+        startTime: "All Day",
+        location: "Khayangan Estate",
         description:
-          "Slow morning. Come as you are. Coffee is mandatory, sunglasses recommended.",
-        dressCode: "Whatever you woke up in",
-        category: "meal",
-      },
-      {
-        id: "10",
-        title: "Pool Hangout",
-        date: "2026-08-16",
-        startTime: "1:00 PM",
-        endTime: "5:00 PM",
-        location: "Hotel Pool",
-        description: "Last day together! Relax by the pool before everyone heads home.",
+          "Relax by the pool, explore the grounds, or just soak in the Bali vibes. No agenda — just good company.",
         category: "free-time",
+      },
+    ],
+  },
+  {
+    date: "2026-08-05",
+    label: "Tuesday — Boat Day 🚤",
+    events: [
+      {
+        id: "8",
+        title: "Boat Day Around the Island",
+        date: "2026-08-05",
+        startTime: "TBD",
+        location: "TBD",
+        description:
+          "Adventure time! We're taking a boat around the island. More details coming soon!",
+        category: "activity",
       },
     ],
   },

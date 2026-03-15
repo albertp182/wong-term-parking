@@ -4,18 +4,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   CalendarDays,
+  ClipboardCheck,
   Home,
   Megaphone,
   MapPin,
-  Users,
 } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "/itinerary", label: "Schedule", icon: CalendarDays },
+  { href: "/rsvp", label: "RSVP", icon: ClipboardCheck },
   { href: "/announcements", label: "Updates", icon: Megaphone },
   { href: "/travel", label: "Travel", icon: MapPin },
-  { href: "/guests", label: "Guests", icon: Users },
 ];
 
 export default function Navigation() {
