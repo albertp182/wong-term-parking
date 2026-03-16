@@ -4,17 +4,20 @@ import Link from "next/link";
 import CountdownTimer from "@/components/CountdownTimer";
 import { announcements, COUPLE_NAMES, WEDDING_DATE } from "@/data/wedding";
 import {
-  CalendarDays,
-  ClipboardCheck,
-  Megaphone,
-  MapPin,
   ArrowRight,
+  CalendarDays,
+  Camera,
+  ClipboardCheck,
+  MapPin,
+  Megaphone,
+  Music,
+  Sparkles,
 } from "lucide-react";
 
 const quickLinks = [
   {
     href: "/itinerary",
-    label: "Itinerary",
+    label: "Schedule",
     description: "4 days of events",
     icon: CalendarDays,
   },
@@ -25,10 +28,28 @@ const quickLinks = [
     icon: ClipboardCheck,
   },
   {
+    href: "/photos",
+    label: "Photos",
+    description: "Wedding photo gallery",
+    icon: Camera,
+  },
+  {
+    href: "/playlist",
+    label: "Playlist",
+    description: "Request songs for the party",
+    icon: Music,
+  },
+  {
     href: "/announcements",
-    label: "Announcements",
-    description: "Latest updates",
+    label: "Updates",
+    description: "Latest announcements",
     icon: Megaphone,
+  },
+  {
+    href: "/recommendations",
+    label: "Bali Picks",
+    description: "Our favorite spots",
+    icon: Sparkles,
   },
   {
     href: "/travel",
