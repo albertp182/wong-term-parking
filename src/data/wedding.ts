@@ -1,7 +1,7 @@
 import { WeddingDay, Announcement, TravelInfo } from "@/lib/types";
 
 export const WEDDING_DATE = "2026-08-03";
-export const COUPLE_NAMES = "Albert & Partner";
+export const COUPLE_NAMES = "Albert & Vicky";
 export const WEDDING_LOCATION = "Bali, Indonesia";
 export const WEDDING_TAGLINE = "Wong Term Parking 🅿️";
 
