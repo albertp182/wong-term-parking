@@ -309,77 +309,100 @@ interface MapRegion {
   dy: number;
 }
 
+// ---------------------------------------------------------------------------
+// Geographically accurate Bali map coordinates
+// Traced from real Bali coastline, viewBox 0 0 600 460
+//
+// Key geography:
+// - West tip (Gilimanuk) narrow point facing Java
+// - North coast is relatively straight (Singaraja, Lovina)
+// - Northeast bulge (Amed, Tulamben - volcano coast)
+// - East coast curves south (Padang Bai, Candidasa)
+// - Narrow isthmus connects main island to Bukit peninsula
+// - Bukit peninsula hangs south with Uluwatu at SW tip, Nusa Dua at SE
+// - Airport (DPS) sits on the isthmus
+// ---------------------------------------------------------------------------
+
 const mapRegions: MapRegion[] = [
   {
     id: "seminyak-canggu",
     label: "Seminyak / Canggu",
-    path: "M 80,130 C 100,105 150,85 200,80 L 250,90 L 270,130 L 270,200 L 250,240 L 210,255 L 160,250 L 120,220 L 85,180 Z",
-    lx: 165,
-    ly: 158,
-    dx: 175,
-    dy: 175,
+    // Southwest coastal strip: Tanah Lot area down through Canggu, Seminyak to Kuta
+    path: "M 105,185 L 155,155 L 210,140 L 260,145 L 270,175 L 265,210 L 255,235 L 235,250 L 205,255 L 170,250 L 140,235 L 115,215 Z",
+    lx: 190,
+    ly: 200,
+    dx: 195,
+    dy: 210,
   },
   {
     id: "ubud",
     label: "Ubud",
-    path: "M 250,90 L 340,75 L 410,80 L 430,110 L 420,170 L 380,210 L 330,230 L 280,240 L 270,200 L 270,130 Z",
-    lx: 340,
-    ly: 145,
-    dx: 340,
-    dy: 155,
+    // Central highlands: the cultural heart, inland from both coasts
+    path: "M 210,140 L 260,110 L 310,90 L 370,85 L 400,95 L 400,135 L 385,175 L 355,205 L 310,220 L 270,225 L 265,210 L 270,175 L 260,145 Z",
+    lx: 320,
+    ly: 155,
+    dx: 325,
+    dy: 160,
   },
   {
     id: "sanur",
     label: "Sanur",
-    path: "M 410,80 L 470,90 L 520,120 L 530,170 L 500,220 L 440,250 L 380,260 L 330,250 L 330,230 L 380,210 L 420,170 L 430,110 Z",
-    lx: 455,
-    ly: 165,
-    dx: 460,
-    dy: 175,
+    // East-central coast: Sanur beach area down to the isthmus
+    path: "M 400,95 L 445,105 L 490,130 L 520,165 L 510,205 L 480,240 L 440,265 L 400,278 L 370,280 L 355,265 L 355,205 L 385,175 L 400,135 Z",
+    lx: 440,
+    ly: 190,
+    dx: 445,
+    dy: 195,
   },
   {
     id: "jimbaran",
     label: "Jimbaran",
-    path: "M 250,240 L 280,240 L 330,250 L 340,270 L 330,310 L 300,330 L 270,320 L 250,290 Z",
-    lx: 278,
-    ly: 282,
-    dx: 290,
-    dy: 290,
+    // West side of Bukit: Jimbaran Bay, west coast of the peninsula
+    path: "M 310,270 L 340,265 L 370,280 L 365,305 L 355,330 L 340,345 L 320,340 L 310,320 L 305,295 Z",
+    lx: 330,
+    ly: 305,
+    dx: 335,
+    dy: 310,
   },
   {
     id: "uluwatu",
     label: "Uluwatu",
-    path: "M 270,320 L 300,330 L 310,360 L 300,390 L 270,400 L 245,385 L 240,350 Z",
-    lx: 265,
-    ly: 363,
-    dx: 275,
-    dy: 370,
+    // Southwest tip of Bukit: Uluwatu cliffs and temple
+    path: "M 305,295 L 310,320 L 320,340 L 340,345 L 340,370 L 330,395 L 310,410 L 290,405 L 278,390 L 278,365 L 285,340 Z",
+    lx: 305,
+    ly: 378,
+    dx: 310,
+    dy: 375,
   },
   {
     id: "nusa-dua",
     label: "Nusa Dua",
-    path: "M 300,330 L 330,310 L 370,300 L 390,320 L 380,370 L 350,395 L 310,395 L 300,390 L 310,360 Z",
-    lx: 345,
-    ly: 352,
-    dx: 345,
+    // East side of Bukit: Nusa Dua resort area, Benoa
+    path: "M 340,345 L 355,330 L 365,305 L 380,300 L 400,310 L 405,340 L 395,375 L 375,400 L 345,410 L 330,395 L 340,370 Z",
+    lx: 373,
+    ly: 358,
+    dx: 375,
     dy: 355,
   },
 ];
 
 // Key landmark markers (always visible gold stars)
 const landmarks = [
-  { label: "DPS", emoji: "\u2708\uFE0F", x: 310, y: 260 },
+  // Airport on the isthmus between main island and Bukit
+  { label: "DPS", emoji: "\u2708\uFE0F", x: 360, y: 282 },
+  // Khayangan Estate in southern Uluwatu
   {
     label: "Khayangan Estate",
     emoji: "\uD83D\uDC92",
-    x: 260,
-    y: 388,
+    x: 300,
+    y: 398,
   },
+  // Swiss-Belhotel Pecatu on west side of Bukit
   {
     label: "Swiss-Belhotel",
     emoji: "\uD83C\uDFE8",
-    x: 238,
-    y: 340,
+    x: 290,
+    y: 350,
   },
 ];
 
@@ -431,7 +454,7 @@ export default function RecommendationsPage() {
       <div className="px-3 pt-2">
         <div className="relative rounded-2xl overflow-hidden border border-[var(--cream-dark)] shadow-sm">
           <svg
-            viewBox="0 0 600 440"
+            viewBox="0 0 600 460"
             className="w-full h-auto"
             style={{ background: "rgba(61,133,198,0.10)" }}
           >
@@ -459,44 +482,48 @@ export default function RecommendationsPage() {
             </defs>
 
             {/* Ocean background fill */}
-            <rect width="600" height="440" fill="rgba(61,133,198,0.07)" />
-            <rect width="600" height="440" fill="url(#water)" />
+            <rect width="600" height="460" fill="rgba(61,133,198,0.07)" />
+            <rect width="600" height="460" fill="url(#water)" />
 
-            {/* Main island silhouette (behind clickable regions, for the green landmass feel) */}
+            {/* Main island silhouette — traced from real Bali coastline */}
+            {/* Clockwise from Gilimanuk (west tip) */}
             <path
               d={`
-                M 60,150
-                C 70,115 120,80 200,75
-                L 260,82
-                L 340,70
-                L 420,75
-                L 480,88
-                L 535,120
-                L 545,175
-                L 510,225
-                L 450,255
-                L 395,265
-                L 395,305
-                L 395,330
-                L 385,375
-                L 355,400
-                L 310,400
-                L 295,395
-                L 265,405
-                L 235,390
-                L 230,345
-                L 245,285
-                L 240,250
-                L 200,260
-                L 150,255
-                L 110,225
-                L 75,185
+                M 42,180
+                C 50,170 60,158 75,148
+                Q 95,130 120,118
+                Q 150,105 185,95
+                Q 220,86 260,82
+                Q 300,78 340,80
+                Q 375,82 410,90
+                Q 445,100 475,118
+                Q 505,138 525,165
+                Q 535,185 530,210
+                Q 520,235 500,252
+                Q 475,270 450,278
+                Q 420,288 400,290
+                L 405,310
+                Q 410,335 405,360
+                Q 398,385 380,405
+                Q 360,418 340,415
+                L 330,400
+                Q 310,415 290,410
+                Q 275,400 272,380
+                Q 270,355 280,335
+                L 295,300
+                L 300,280
+                Q 280,272 260,262
+                Q 235,255 210,255
+                Q 180,255 155,248
+                Q 130,238 112,222
+                Q 90,205 72,188
+                Q 55,175 42,180
                 Z
               `}
               fill="var(--forest)"
               fillOpacity="0.09"
               stroke="var(--forest)"
-              strokeOpacity="0.15"
+              strokeOpacity="0.18"
               strokeWidth="1.5"
             />
 
@@ -601,8 +628,8 @@ export default function RecommendationsPage() {
 
             {/* "Indian Ocean" label */}
             <text
-              x="110"
-              y="380"
+              x="120"
+              y="440"
               fontSize="12"
               fill="var(--ocean)"
               fillOpacity="0.3"
@@ -616,8 +643,8 @@ export default function RecommendationsPage() {
 
             {/* "Bali Sea" label (top) */}
             <text
-              x="280"
-              y="45"
+              x="300"
+              y="50"
               fontSize="12"
               textAnchor="middle"
               fill="var(--ocean)"
