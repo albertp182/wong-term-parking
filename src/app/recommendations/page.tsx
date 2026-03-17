@@ -273,14 +273,15 @@ const regions: Region[] = [
 // Coordinates are % from top-left of the image
 // ---------------------------------------------------------------------------
 
+// Positions measured from cropped bali-map.png (2816x1336) as percentages
 const hotspots: { id: RegionId; label: string; x: number; y: number; w: number; h: number }[] = [
-  { id: "ubud",           label: "Ubud",      x: 46, y: 33, w: 14, h: 8 },
-  { id: "seminyak-canggu", label: "Canggu",   x: 27, y: 47, w: 15, h: 7 },
-  { id: "seminyak-canggu", label: "Seminyak", x: 25, y: 55, w: 17, h: 7 },
-  { id: "jimbaran",       label: "Jimbaran",  x: 27, y: 64, w: 17, h: 7 },
-  { id: "sanur",          label: "Sanur",     x: 53, y: 63, w: 14, h: 7 },
-  { id: "uluwatu",        label: "Uluwatu",   x: 29, y: 75, w: 16, h: 7 },
-  { id: "nusa-dua",       label: "Nusa Dua",  x: 46, y: 75, w: 16, h: 8 },
+  { id: "ubud",            label: "Ubud",      x: 46.2, y: 21.3, w: 8.5,  h: 6.7 },
+  { id: "seminyak-canggu", label: "Canggu",    x: 25.9, y: 34.8, w: 12.1, h: 6.7 },
+  { id: "seminyak-canggu", label: "Seminyak",  x: 26.3, y: 44.5, w: 15.6, h: 6.7 },
+  { id: "jimbaran",        label: "Jimbaran",  x: 24.9, y: 55.8, w: 15.6, h: 6.7 },
+  { id: "sanur",           label: "Sanur",     x: 51.0, y: 54.3, w: 10.3, h: 6.7 },
+  { id: "uluwatu",         label: "Uluwatu",   x: 24.7, y: 67.0, w: 13.8, h: 6.7 },
+  { id: "nusa-dua",        label: "Nusa Dua",  x: 40.8, y: 67.0, w: 15.6, h: 6.7 },
 ];
 
 // ---------------------------------------------------------------------------
