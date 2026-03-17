@@ -269,68 +269,18 @@ const regions: Region[] = [
 ];
 
 // ---------------------------------------------------------------------------
-// Map overlay regions — positioned over the zoomed reference map image
-// viewBox 0 0 1000 1000 mapped to the visible cropped area of bali-map.png
-// The image is zoomed ~190% and centered on southern Bali
+// Clickable hotspots — positioned over the region name text in the cartoon map
+// Coordinates are % from top-left of the image
 // ---------------------------------------------------------------------------
 
-interface MapRegion {
-  id: RegionId;
-  label: string;
-  path: string;
-  lx: number;
-  ly: number;
-}
-
-const mapRegions: MapRegion[] = [
-  {
-    id: "seminyak-canggu",
-    label: "Seminyak / Canggu",
-    path: "M 200,560 L 310,530 L 410,550 L 450,630 L 455,720 L 430,770 L 340,790 L 250,770 L 200,700 L 190,630 Z",
-    lx: 320,
-    ly: 680,
-  },
-  {
-    id: "ubud",
-    label: "Ubud",
-    path: "M 310,320 L 430,290 L 560,310 L 580,420 L 540,510 L 455,555 L 370,545 L 310,470 Z",
-    lx: 445,
-    ly: 430,
-  },
-  {
-    id: "sanur",
-    label: "Sanur",
-    path: "M 540,510 L 580,420 L 680,400 L 740,470 L 730,590 L 680,710 L 580,750 L 500,720 L 470,640 L 490,555 Z",
-    lx: 620,
-    ly: 580,
-  },
-  {
-    id: "jimbaran",
-    label: "Jimbaran",
-    path: "M 370,790 L 440,770 L 500,790 L 520,830 L 510,875 L 465,885 L 410,875 L 370,840 Z",
-    lx: 440,
-    ly: 835,
-  },
-  {
-    id: "uluwatu",
-    label: "Uluwatu",
-    path: "M 330,855 L 410,845 L 430,875 L 425,930 L 400,970 L 355,978 L 320,955 L 310,905 Z",
-    lx: 370,
-    ly: 920,
-  },
-  {
-    id: "nusa-dua",
-    label: "Nusa Dua",
-    path: "M 430,875 L 465,855 L 530,840 L 570,875 L 565,935 L 520,972 L 455,972 L 425,940 Z",
-    lx: 500,
-    ly: 920,
-  },
-];
-
-const landmarks = [
-  { label: "DPS", emoji: "\u2708\uFE0F", x: 490, y: 700 },
-  { label: "Khayangan Estate", emoji: "\uD83D\uDC92", x: 365, y: 960 },
-  { label: "Swiss-Belhotel", emoji: "\uD83C\uDFE8", x: 380, y: 880 },
+const hotspots: { id: RegionId; label: string; x: number; y: number; w: number; h: number }[] = [
+  { id: "ubud",           label: "Ubud",      x: 46, y: 33, w: 14, h: 8 },
+  { id: "seminyak-canggu", label: "Canggu",   x: 27, y: 47, w: 15, h: 7 },
+  { id: "seminyak-canggu", label: "Seminyak", x: 25, y: 55, w: 17, h: 7 },
+  { id: "jimbaran",       label: "Jimbaran",  x: 27, y: 64, w: 17, h: 7 },
+  { id: "sanur",          label: "Sanur",     x: 53, y: 63, w: 14, h: 7 },
+  { id: "uluwatu",        label: "Uluwatu",   x: 29, y: 75, w: 16, h: 7 },
+  { id: "nusa-dua",       label: "Nusa Dua",  x: 46, y: 75, w: 16, h: 8 },
 ];
 
 // ---------------------------------------------------------------------------
@@ -356,12 +306,7 @@ const categoryBadgeClass: Record<RecCategory, string> = {
 // ---------------------------------------------------------------------------
 
 export default function RecommendationsPage() {
-  const [selectedRegion, setSelectedRegion] = useState<RegionId | null>(
-    null
-  );
-  const [hoveredRegion, setHoveredRegion] = useState<RegionId | null>(
-    null
-  );
+  const [selectedRegion, setSelectedRegion] = useState<RegionId | null>(null);
 
   const handleRegionTap = useCallback((id: RegionId) => {
     setSelectedRegion((prev) => (prev === id ? null : id));
@@ -394,137 +339,37 @@ export default function RecommendationsPage() {
       </header>
 
       {/* ---------------------------------------------------------------- */}
-      {/* Interactive Map — real image with region overlays                  */}
+      {/* Cartoon map with clickable region hotspots over the text labels   */}
       {/* ---------------------------------------------------------------- */}
       <div className="px-3 pt-2">
-        <div
-          className="relative rounded-2xl overflow-hidden border border-[var(--cream-dark)] shadow-md"
-          style={{ aspectRatio: "5 / 4" }}
-        >
-          {/* Zoomed map image — cropped to show southern Bali */}
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: "url(/bali-map.png)",
-              backgroundSize: "190%",
-              backgroundPosition: "40% 76%",
-              backgroundRepeat: "no-repeat",
-            }}
+        <div className="relative rounded-2xl overflow-hidden border border-[var(--cream-dark)] shadow-md">
+          {/* Full cartoon map image */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/bali-map.png"
+            alt="Fun cartoon map of Bali showing regions"
+            className="w-full h-auto block"
           />
-          <svg
-            viewBox="0 0 1000 1000"
-            className="absolute inset-0 w-full h-full"
-            style={{ zIndex: 1 }}
-          >
-            <defs>
-              <filter id="star-glow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
 
-            {/* Clickable region overlays */}
-            {mapRegions.map((region) => {
-              const isSelected = selectedRegion === region.id;
-              const isHovered = hoveredRegion === region.id;
-              return (
-                <g key={region.id}>
-                  <path
-                    d={region.path}
-                    fill={
-                      isSelected
-                        ? "var(--gold)"
-                        : isHovered
-                        ? "var(--gold-light)"
-                        : "white"
-                    }
-                    fillOpacity={isSelected ? 0.4 : isHovered ? 0.25 : 0.08}
-                    stroke={
-                      isSelected
-                        ? "var(--gold-dark)"
-                        : isHovered
-                        ? "var(--gold)"
-                        : "var(--charcoal)"
-                    }
-                    strokeWidth={isSelected ? 3 : isHovered ? 2.5 : 1.5}
-                    strokeOpacity={isSelected ? 0.9 : isHovered ? 0.6 : 0.3}
-                    strokeDasharray={isSelected || isHovered ? "none" : "8 5"}
-                    className="cursor-pointer transition-all duration-200"
-                    onClick={() => handleRegionTap(region.id)}
-                    onMouseEnter={() => setHoveredRegion(region.id)}
-                    onMouseLeave={() => setHoveredRegion(null)}
-                    role="button"
-                    aria-label={`View recommendations for ${region.label}`}
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        handleRegionTap(region.id);
-                      }
-                    }}
-                  />
-                  {/* Region label with white background for readability */}
-                  <rect
-                    x={region.lx - (region.id === "seminyak-canggu" ? 80 : 45)}
-                    y={region.ly - 16}
-                    width={region.id === "seminyak-canggu" ? 160 : 90}
-                    height={22}
-                    rx={6}
-                    fill="white"
-                    fillOpacity={isSelected ? 0.95 : 0.8}
-                    className="pointer-events-none"
-                  />
-                  <text
-                    x={region.lx}
-                    y={region.ly}
-                    textAnchor="middle"
-                    fontSize={region.id === "seminyak-canggu" ? 20 : 22}
-                    fontWeight={isSelected ? 800 : 700}
-                    fill={isSelected ? "var(--gold-dark)" : "var(--charcoal)"}
-                    className="pointer-events-none select-none"
-                    style={{ fontFamily: "var(--font-sans), system-ui, sans-serif" }}
-                  >
-                    {region.label}
-                  </text>
-                </g>
-              );
-            })}
-
-            {/* Gold star landmarks */}
-            {landmarks.map((lm) => (
-              <g key={lm.label} filter="url(#star-glow)">
-                <polygon
-                  points={starPoints(lm.x, lm.y, 14, 6)}
-                  fill="var(--gold)"
-                  stroke="var(--gold-dark)"
-                  strokeWidth="1.2"
-                />
-                <rect
-                  x={lm.x - (lm.label.length * 5 + 12)}
-                  y={lm.y - 34}
-                  width={lm.label.length * 10 + 24}
-                  height={20}
-                  rx={5}
-                  fill="white"
-                  fillOpacity="0.85"
-                />
-                <text
-                  x={lm.x}
-                  y={lm.y - 19}
-                  textAnchor="middle"
-                  fontSize={16}
-                  fontWeight={700}
-                  fill="var(--gold-dark)"
-                  className="select-none"
-                  style={{ fontFamily: "var(--font-sans), system-ui, sans-serif" }}
-                >
-                  {lm.label} {lm.emoji}
-                </text>
-              </g>
-            ))}
-          </svg>
+          {/* Invisible clickable hotspots over the region name text */}
+          {hotspots.map((spot, i) => (
+            <button
+              key={`${spot.id}-${i}`}
+              onClick={() => handleRegionTap(spot.id)}
+              className={`absolute cursor-pointer rounded-lg transition-all duration-200 ${
+                selectedRegion === spot.id
+                  ? "bg-[var(--gold)]/30 ring-2 ring-[var(--gold-dark)]"
+                  : "hover:bg-[var(--gold)]/15"
+              }`}
+              style={{
+                left: `${spot.x}%`,
+                top: `${spot.y}%`,
+                width: `${spot.w}%`,
+                height: `${spot.h}%`,
+              }}
+              aria-label={`View recommendations for ${spot.label}`}
+            />
+          ))}
         </div>
       </div>
 
@@ -643,27 +488,3 @@ export default function RecommendationsPage() {
   );
 }
 
-// ---------------------------------------------------------------------------
-// Helper: generate 5-pointed star polygon points string
-// ---------------------------------------------------------------------------
-function starPoints(
-  cx: number,
-  cy: number,
-  outerR: number,
-  innerR: number
-): string {
-  const points: string[] = [];
-  for (let i = 0; i < 5; i++) {
-    // outer point
-    const outerAngle = (Math.PI / 2) * -1 + (2 * Math.PI * i) / 5;
-    points.push(
-      `${cx + outerR * Math.cos(outerAngle)},${cy + outerR * Math.sin(outerAngle)}`
-    );
-    // inner point
-    const innerAngle = outerAngle + Math.PI / 5;
-    points.push(
-      `${cx + innerR * Math.cos(innerAngle)},${cy + innerR * Math.sin(innerAngle)}`
-    );
-  }
-  return points.join(" ");
-}
