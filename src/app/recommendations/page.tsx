@@ -269,6 +269,71 @@ const regions: Region[] = [
 ];
 
 // ---------------------------------------------------------------------------
+// Map overlay regions — positioned over the zoomed reference map image
+// viewBox 0 0 1000 1000 mapped to the visible cropped area of bali-map.png
+// The image is zoomed ~190% and centered on southern Bali
+// ---------------------------------------------------------------------------
+
+interface MapRegion {
+  id: RegionId;
+  label: string;
+  path: string;
+  lx: number;
+  ly: number;
+}
+
+const mapRegions: MapRegion[] = [
+  {
+    id: "seminyak-canggu",
+    label: "Seminyak / Canggu",
+    path: "M 200,560 L 310,530 L 410,550 L 450,630 L 455,720 L 430,770 L 340,790 L 250,770 L 200,700 L 190,630 Z",
+    lx: 320,
+    ly: 680,
+  },
+  {
+    id: "ubud",
+    label: "Ubud",
+    path: "M 310,320 L 430,290 L 560,310 L 580,420 L 540,510 L 455,555 L 370,545 L 310,470 Z",
+    lx: 445,
+    ly: 430,
+  },
+  {
+    id: "sanur",
+    label: "Sanur",
+    path: "M 540,510 L 580,420 L 680,400 L 740,470 L 730,590 L 680,710 L 580,750 L 500,720 L 470,640 L 490,555 Z",
+    lx: 620,
+    ly: 580,
+  },
+  {
+    id: "jimbaran",
+    label: "Jimbaran",
+    path: "M 370,790 L 440,770 L 500,790 L 520,830 L 510,875 L 465,885 L 410,875 L 370,840 Z",
+    lx: 440,
+    ly: 835,
+  },
+  {
+    id: "uluwatu",
+    label: "Uluwatu",
+    path: "M 330,855 L 410,845 L 430,875 L 425,930 L 400,970 L 355,978 L 320,955 L 310,905 Z",
+    lx: 370,
+    ly: 920,
+  },
+  {
+    id: "nusa-dua",
+    label: "Nusa Dua",
+    path: "M 430,875 L 465,855 L 530,840 L 570,875 L 565,935 L 520,972 L 455,972 L 425,940 Z",
+    lx: 500,
+    ly: 920,
+  },
+];
+
+const landmarks = [
+  { label: "DPS", emoji: "\u2708\uFE0F", x: 490, y: 700 },
+  { label: "Khayangan Estate", emoji: "\uD83D\uDC92", x: 365, y: 960 },
+  { label: "Swiss-Belhotel", emoji: "\uD83C\uDFE8", x: 380, y: 880 },
+];
+
+// ---------------------------------------------------------------------------
 // Category styling helpers
 // ---------------------------------------------------------------------------
 
@@ -285,115 +350,6 @@ const categoryBadgeClass: Record<RecCategory, string> = {
   Activity: "bg-[var(--forest)]/15 text-[var(--forest)]",
   Wellness: "bg-[var(--gold-dark)]/15 text-[var(--gold-dark)]",
 };
-
-// ---------------------------------------------------------------------------
-// Geographically accurate Bali map — traced from reference map
-// viewBox 0 0 800 540
-//
-// Bali is ~153km E-W, ~112km N-S (with Bukit). The island is much wider
-// than it is tall. Key shape features from the reference map:
-//   - Narrow west tip (Gilimanuk) pointing NW toward Java
-//   - North coast is long, gently concave (dips south near mountains)
-//   - Northeast extends far east (Karangasem, Mount Agung)
-//   - East coast (Lombok Strait) drops south then curves SW
-//   - South coast runs to narrow isthmus at DPS airport
-//   - Bukit peninsula hangs south — small relative to main island
-//   - Canggu/Seminyak/Kuta are SW coast of MAIN island, above isthmus
-//   - Sanur is SE coast of main island, east of isthmus
-// ---------------------------------------------------------------------------
-
-interface MapRegion {
-  id: RegionId;
-  label: string;
-  path: string;
-  lx: number;
-  ly: number;
-  dx: number;
-  dy: number;
-}
-
-const mapRegions: MapRegion[] = [
-  {
-    id: "seminyak-canggu",
-    label: "Seminyak / Canggu",
-    // SW coast of main island: from Tanah Lot coast through Canggu, Seminyak, Kuta
-    path: "M 155,250 L 205,220 L 270,200 L 340,205 L 380,235 L 390,280 L 395,330 L 385,365 L 365,380 L 345,370 L 320,365 L 290,370 L 255,368 L 215,358 L 180,340 L 155,310 Z",
-    lx: 275,
-    ly: 300,
-    dx: 290,
-    dy: 305,
-  },
-  {
-    id: "ubud",
-    label: "Ubud",
-    // Central highlands, the cultural heart
-    path: "M 270,200 L 340,160 L 420,135 L 500,132 L 520,165 L 500,210 L 465,245 L 420,265 L 380,270 L 380,235 L 340,205 Z",
-    lx: 410,
-    ly: 200,
-    dx: 415,
-    dy: 205,
-  },
-  {
-    id: "sanur",
-    label: "Sanur",
-    // SE coast: from Gianyar coast through Sanur to the isthmus
-    path: "M 500,132 L 560,140 L 625,170 L 680,220 L 700,275 L 680,325 L 640,365 L 590,390 L 535,402 L 490,408 L 470,410 L 455,400 L 460,385 L 440,370 L 420,360 L 420,300 L 420,265 L 465,245 L 500,210 L 520,165 Z",
-    lx: 565,
-    ly: 280,
-    dx: 570,
-    dy: 285,
-  },
-  {
-    id: "jimbaran",
-    label: "Jimbaran",
-    // West Bukit: Jimbaran Bay coast
-    path: "M 385,365 L 395,330 L 420,300 L 420,360 L 440,370 L 455,380 L 455,410 L 445,425 L 430,435 L 412,432 L 400,425 L 390,412 Z",
-    lx: 415,
-    ly: 398,
-    dx: 420,
-    dy: 400,
-  },
-  {
-    id: "uluwatu",
-    label: "Uluwatu",
-    // SW tip of Bukit peninsula
-    path: "M 385,365 L 390,412 L 400,425 L 412,432 L 415,455 L 405,478 L 388,490 L 368,488 L 355,475 L 350,455 L 352,435 L 360,415 L 365,395 Z",
-    lx: 380,
-    ly: 460,
-    dx: 382,
-    dy: 455,
-  },
-  {
-    id: "nusa-dua",
-    label: "Nusa Dua",
-    // East side of Bukit: resort area
-    path: "M 412,432 L 430,435 L 445,425 L 455,410 L 470,410 L 485,420 L 488,445 L 480,470 L 462,488 L 440,495 L 420,490 L 405,478 L 415,455 Z",
-    lx: 455,
-    ly: 458,
-    dx: 452,
-    dy: 455,
-  },
-];
-
-// Key landmark markers (always visible gold stars)
-const landmarks = [
-  // Airport on the isthmus between main island and Bukit
-  { label: "DPS", emoji: "\u2708\uFE0F", x: 450, y: 388 },
-  // Khayangan Estate in southern Uluwatu
-  {
-    label: "Khayangan Estate",
-    emoji: "\uD83D\uDC92",
-    x: 378,
-    y: 482,
-  },
-  // Swiss-Belhotel Pecatu on west side of Bukit
-  {
-    label: "Swiss-Belhotel",
-    emoji: "\uD83C\uDFE8",
-    x: 365,
-    y: 438,
-  },
-];
 
 // ---------------------------------------------------------------------------
 // Component
@@ -438,82 +394,39 @@ export default function RecommendationsPage() {
       </header>
 
       {/* ---------------------------------------------------------------- */}
-      {/* Interactive SVG Map                                               */}
+      {/* Interactive Map — real image with region overlays                  */}
       {/* ---------------------------------------------------------------- */}
       <div className="px-3 pt-2">
-        <div className="relative rounded-2xl overflow-hidden border border-[var(--cream-dark)] shadow-sm">
+        <div
+          className="relative rounded-2xl overflow-hidden border border-[var(--cream-dark)] shadow-md"
+          style={{ aspectRatio: "5 / 4" }}
+        >
+          {/* Zoomed map image — cropped to show southern Bali */}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: "url(/bali-map.png)",
+              backgroundSize: "190%",
+              backgroundPosition: "40% 76%",
+              backgroundRepeat: "no-repeat",
+            }}
+          />
           <svg
-            viewBox="0 0 800 540"
-            className="w-full h-auto"
-            style={{ background: "rgba(61,133,198,0.10)" }}
+            viewBox="0 0 1000 1000"
+            className="absolute inset-0 w-full h-full"
+            style={{ zIndex: 1 }}
           >
-            {/* Definitions */}
             <defs>
               <filter id="star-glow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+                <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
                 <feMerge>
                   <feMergeNode in="blur" />
                   <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
-              <filter id="label-shadow" x="-10%" y="-10%" width="120%" height="120%">
-                <feDropShadow dx="0" dy="1" stdDeviation="1" floodColor="#000" floodOpacity="0.15" />
-              </filter>
-              <pattern id="water" patternUnits="userSpaceOnUse" width="40" height="40">
-                <path d="M0 20 Q10 15 20 20 Q30 25 40 20" fill="none" stroke="rgba(61,133,198,0.08)" strokeWidth="1" />
-              </pattern>
             </defs>
 
-            {/* Ocean */}
-            <rect width="800" height="540" fill="rgba(61,133,198,0.07)" />
-            <rect width="800" height="540" fill="url(#water)" />
-
-            {/* ─── Main island silhouette ─── */}
-            {/* Traced from reference map — clockwise from Gilimanuk (west tip) */}
-            {/* The island is wide E-W (~700 units) with the Bukit hanging south */}
-            <path
-              d={`
-                M 38,260
-                C 48,248 62,232 80,218
-                C 100,202 128,185 158,170
-                C 190,155 225,142 265,130
-                C 310,118 360,110 410,108
-                C 445,106 475,108 505,115
-                C 535,122 560,132 585,148
-                C 612,165 638,188 660,215
-                C 678,238 692,262 700,288
-                C 705,308 702,328 692,345
-                C 678,365 658,382 635,395
-                C 608,408 578,418 548,425
-                C 520,430 498,432 480,434
-                L 472,418
-                L 490,445
-                C 492,462 490,478 482,492
-                C 472,505 458,512 442,515
-                C 428,516 416,512 406,502
-                C 398,493 392,482 388,470
-                C 382,455 370,468 358,478
-                C 348,486 338,490 328,488
-                C 315,485 308,475 305,462
-                C 302,448 305,432 312,418
-                L 330,390
-                L 348,370
-                C 338,368 325,366 310,366
-                C 288,368 265,370 242,368
-                C 218,365 195,358 175,348
-                C 152,335 132,318 115,298
-                C 98,278 82,262 68,252
-                C 55,244 45,242 38,260
-                Z
-              `}
-              fill="var(--forest)"
-              fillOpacity="0.10"
-              stroke="var(--forest)"
-              strokeOpacity="0.20"
-              strokeWidth="1.5"
-            />
-
-            {/* Clickable region areas */}
+            {/* Clickable region overlays */}
             {mapRegions.map((region) => {
               const isSelected = selectedRegion === region.id;
               const isHovered = hoveredRegion === region.id;
@@ -525,15 +438,20 @@ export default function RecommendationsPage() {
                       isSelected
                         ? "var(--gold)"
                         : isHovered
-                        ? "var(--cream)"
-                        : "var(--cream-dark)"
+                        ? "var(--gold-light)"
+                        : "white"
                     }
-                    fillOpacity={isSelected ? 0.55 : isHovered ? 0.7 : 0.45}
+                    fillOpacity={isSelected ? 0.4 : isHovered ? 0.25 : 0.08}
                     stroke={
-                      isSelected ? "var(--gold-dark)" : "var(--forest)"
+                      isSelected
+                        ? "var(--gold-dark)"
+                        : isHovered
+                        ? "var(--gold)"
+                        : "var(--charcoal)"
                     }
-                    strokeWidth={isSelected ? 2.5 : 1}
-                    strokeOpacity={isSelected ? 0.9 : 0.25}
+                    strokeWidth={isSelected ? 3 : isHovered ? 2.5 : 1.5}
+                    strokeOpacity={isSelected ? 0.9 : isHovered ? 0.6 : 0.3}
+                    strokeDasharray={isSelected || isHovered ? "none" : "8 5"}
                     className="cursor-pointer transition-all duration-200"
                     onClick={() => handleRegionTap(region.id)}
                     onMouseEnter={() => setHoveredRegion(region.id)}
@@ -547,27 +465,24 @@ export default function RecommendationsPage() {
                       }
                     }}
                   />
-                  {/* Region center dot */}
-                  <circle
-                    cx={region.dx}
-                    cy={region.dy}
-                    r={isSelected ? 5 : 3.5}
-                    fill={isSelected ? "var(--gold-dark)" : "var(--charcoal)"}
-                    fillOpacity={isSelected ? 1 : 0.45}
-                    className="pointer-events-none transition-all duration-200"
+                  {/* Region label with white background for readability */}
+                  <rect
+                    x={region.lx - (region.id === "seminyak-canggu" ? 80 : 45)}
+                    y={region.ly - 16}
+                    width={region.id === "seminyak-canggu" ? 160 : 90}
+                    height={22}
+                    rx={6}
+                    fill="white"
+                    fillOpacity={isSelected ? 0.95 : 0.8}
+                    className="pointer-events-none"
                   />
-                  {/* Region label */}
                   <text
                     x={region.lx}
                     y={region.ly}
                     textAnchor="middle"
-                    fontSize={region.id === "seminyak-canggu" ? 11 : 12}
-                    fontWeight={isSelected ? 700 : 500}
-                    fill={
-                      isSelected ? "var(--gold-dark)" : "var(--charcoal)"
-                    }
-                    fillOpacity={isSelected ? 1 : 0.7}
-                    filter="url(#label-shadow)"
+                    fontSize={region.id === "seminyak-canggu" ? 20 : 22}
+                    fontWeight={isSelected ? 800 : 700}
+                    fill={isSelected ? "var(--gold-dark)" : "var(--charcoal)"}
                     className="pointer-events-none select-none"
                     style={{ fontFamily: "var(--font-sans), system-ui, sans-serif" }}
                   >
@@ -580,22 +495,28 @@ export default function RecommendationsPage() {
             {/* Gold star landmarks */}
             {landmarks.map((lm) => (
               <g key={lm.label} filter="url(#star-glow)">
-                {/* Star shape */}
                 <polygon
-                  points={starPoints(lm.x, lm.y, 8, 4)}
+                  points={starPoints(lm.x, lm.y, 14, 6)}
                   fill="var(--gold)"
                   stroke="var(--gold-dark)"
-                  strokeWidth="0.8"
+                  strokeWidth="1.2"
                 />
-                {/* Label */}
+                <rect
+                  x={lm.x - (lm.label.length * 5 + 12)}
+                  y={lm.y - 34}
+                  width={lm.label.length * 10 + 24}
+                  height={20}
+                  rx={5}
+                  fill="white"
+                  fillOpacity="0.85"
+                />
                 <text
                   x={lm.x}
-                  y={lm.y - 13}
+                  y={lm.y - 19}
                   textAnchor="middle"
-                  fontSize={9.5}
-                  fontWeight={600}
+                  fontSize={16}
+                  fontWeight={700}
                   fill="var(--gold-dark)"
-                  filter="url(#label-shadow)"
                   className="select-none"
                   style={{ fontFamily: "var(--font-sans), system-ui, sans-serif" }}
                 >
@@ -603,76 +524,6 @@ export default function RecommendationsPage() {
                 </text>
               </g>
             ))}
-
-            {/* Compass rose (top-right) */}
-            <g transform="translate(748, 52)" opacity="0.3">
-              <circle cx="0" cy="0" r="18" fill="none" stroke="var(--charcoal)" strokeWidth="0.8" />
-              <line x1="0" y1="-16" x2="0" y2="16" stroke="var(--charcoal)" strokeWidth="0.8" />
-              <line x1="-16" y1="0" x2="16" y2="0" stroke="var(--charcoal)" strokeWidth="0.8" />
-              <text x="0" y="-22" textAnchor="middle" fontSize="9" fill="var(--charcoal)" fontWeight="600" style={{ fontFamily: "var(--font-sans), system-ui, sans-serif" }}>N</text>
-            </g>
-
-            {/* "Java Sea" label (top-left) */}
-            <text
-              x="80"
-              y="170"
-              fontSize="13"
-              fill="var(--ocean)"
-              fillOpacity="0.25"
-              fontStyle="italic"
-              fontWeight="300"
-              className="select-none"
-              style={{ fontFamily: "var(--font-sans), system-ui, sans-serif" }}
-            >
-              Java Sea
-            </text>
-
-            {/* "Lombok Strait" label (right) */}
-            <text
-              x="732"
-              y="310"
-              fontSize="11"
-              fill="var(--ocean)"
-              fillOpacity="0.25"
-              fontStyle="italic"
-              fontWeight="300"
-              className="select-none"
-              style={{ fontFamily: "var(--font-sans), system-ui, sans-serif" }}
-              transform="rotate(75, 732, 310)"
-            >
-              Lombok Strait
-            </text>
-
-            {/* "Indian Ocean" label (bottom) */}
-            <text
-              x="160"
-              y="510"
-              fontSize="13"
-              fill="var(--ocean)"
-              fillOpacity="0.25"
-              fontStyle="italic"
-              fontWeight="300"
-              className="select-none"
-              style={{ fontFamily: "var(--font-sans), system-ui, sans-serif" }}
-            >
-              Indian Ocean
-            </text>
-
-            {/* "Bali Sea" label (top) */}
-            <text
-              x="400"
-              y="72"
-              fontSize="13"
-              textAnchor="middle"
-              fill="var(--ocean)"
-              fillOpacity="0.25"
-              fontStyle="italic"
-              fontWeight="300"
-              className="select-none"
-              style={{ fontFamily: "var(--font-sans), system-ui, sans-serif" }}
-            >
-              Bali Sea
-            </text>
           </svg>
         </div>
       </div>
